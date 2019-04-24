@@ -1,4 +1,4 @@
-# Checkpoint-Generator for Tellurium network
+# Checkpoint-Generator for Kegcoin Gold network
 
 This NodeJS utility generates the current checkpoints.csv file from a daemon and saves it to disk.
 
