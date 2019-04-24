@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "node checkpoint_generator.js"
+    "start": "node checkpoint_generator.js"
   },
   "repository": {
     "type": "git",
