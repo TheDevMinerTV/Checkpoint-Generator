@@ -7,7 +7,7 @@ const daemon = new TurtleCoind({
 	port: 32302, // what port is the RPC server running on
 	timeout: 30000, // request timeout
 	ssl: false // whether we need to connect using SSL/TLS
-})
+});
 
 const csv_options = {
 	fieldSeparator: ',',
@@ -20,6 +20,7 @@ const csv_options = {
 	useBom: true,
 	useKeysAsHeaders: false
 };
+
 const csvExporter = new CSV.ExportToCsv(csv_options);
 
 class Checkpoint {
