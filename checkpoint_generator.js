@@ -30,7 +30,7 @@ class Checkpoint {
 	}
 }
 
-const checkpointEveryBlocks = 50;
+const checkpointEveryBlocks = 25;
 var checkpoints = [];
 
 daemon.getBlockCount().then(async (height) => {
