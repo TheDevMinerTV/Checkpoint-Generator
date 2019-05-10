@@ -1,6 +1,6 @@
 # Checkpoint-Generator for Tellurium network
 
-:warning: THIS TOOL DOESN'T GENERATE THE 1st BLOCK BECAUSE OF LIMITATIONS OF THE TURTLECOIN RPC NODEJS API :warning:
+:warning: **THIS TOOL DOESN'T GENERATE THE 1st BLOCK BECAUSE OF LIMITATIONS OF THE TURTLECOIN RPC NODEJS API** :warning:
 
 This NodeJS utility generates the current checkpoints.csv file from a daemon and saves it to disk.
 
