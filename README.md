@@ -1,4 +1,4 @@
-# Checkpoint-Generator for Tellurium network
+# Checkpoint-Generator for Kegcoin Gold network
 
 :warning: **THIS TOOL DOESN'T GENERATE THE 1st BLOCK BECAUSE OF LIMITATIONS OF THE TURTLECOIN RPC NODEJS API** :warning:
 
@@ -12,7 +12,7 @@ This NodeJS utility generates the current checkpoints.csv file from a daemon and
 
 It's super easy to set up. Just type
 ```bash
-git clone https://github.com/TheDevMinerTV/Checkpoint-Generator && cd Checkpoint-Generator && npm install && npm start
+git clone https://github.com/kegcoin-project/Checkpoint-Generator && cd Checkpoint-Generator && npm install && npm start
 ```
 Then it will fetch every 50th block's hash and save it into checkpoints.csv.
 
