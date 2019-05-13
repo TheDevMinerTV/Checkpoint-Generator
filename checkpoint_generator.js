@@ -40,7 +40,10 @@ daemon.getBlockCount().then(async (height) => {
 		await console.log("Getting block info for height " + i);
 		await checkpoints.push(new Checkpoint(i, await daemon.getBlockHash({
 			height: i
-		})));
+		})
+		.catch((error) => {
+			throw new Error(`An error occurred whilst getting the hash for block ${i}: ${error}`);
+		}));
 	}
 
 	console.log("Checkpoints:\n" + JSON.stringify(checkpoints, null , 4));
