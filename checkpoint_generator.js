@@ -43,7 +43,7 @@ daemon.getBlockCount().then(async (height) => {
 		})
 		.catch((error) => {
 			throw new Error(`An error occurred whilst getting the hash for block ${i}: ${error}`);
-		}));
+		})));
 	}
 
 	console.log("Checkpoints:\n" + JSON.stringify(checkpoints, null , 4));
@@ -53,4 +53,7 @@ daemon.getBlockCount().then(async (height) => {
 
 	await fs.writeFileSync('checkpoints.csv', csvdata);
 	await console.log("New checkpoints.csv file has been written!");
+})
+.catch((error) => {
+	throw new Error(`An error occurred whilst getting height of the blockchain : ${error}`);
 });
