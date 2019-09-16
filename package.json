@@ -6,7 +6,7 @@
   "dependencies": {
     "export-to-csv": "^0.2.1",
     "turtlecoin-utils": "^0.0.6",
-    "turtlecoin-rpc": "^1.0.2"
+    "turtlecoin-rpc": "^1.0.3"
   },
   "devDependencies": {},
   "scripts": {
