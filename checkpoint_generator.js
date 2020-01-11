@@ -1,27 +1,12 @@
-const CSV = require("export-to-csv"),
-	  fs = require('fs'),
-	  TurtleCoind = require('turtlecoin-rpc').TurtleCoind;
+const fs = require('fs'),
+      { TurtleCoind } = require('turtlecoin-rpc');
 
 const daemon = new TurtleCoind({
-	host: '104.243.33.176', // ip address or hostname of the Telluriumd host
-	port: 32302, // what port is the RPC server running on
+	host: '127.0.0.1', // ip address or hostname of the Telluriumd host
+	port: 32769, // what port is the RPC server running on
 	timeout: 30000, // request timeout
 	ssl: false // whether we need to connect using SSL/TLS
 });
-
-const csv_options = {
-	fieldSeparator: ',',
-	quoteStrings: '"',
-	decimalSeparator: '.',
-	showLabels: false,
-	showTitle: false,
-	title: '',
-	useTextFile: false,
-	useBom: true,
-	useKeysAsHeaders: false
-};
-
-const csvExporter = new CSV.ExportToCsv(csv_options);
 
 class Checkpoint {
 	constructor(height, hash) {
@@ -30,29 +15,46 @@ class Checkpoint {
 	}
 }
 
-const checkpointEveryBlocks = 25;
 var checkpoints = [];
 
 daemon.getBlockCount().then(async (height) => {
 	await console.log("Got blockheight " + height + "!");
 
-	for (let i = checkpointEveryBlocks; i < height; i += checkpointEveryBlocks) {
+	for (let i = 1; i < height; i++) {
 		await console.log("Getting block info for height " + i);
-		await checkpoints.push(new Checkpoint(i, await daemon.getBlockHash({
+
+		const blockHash = await daemon.getBlockHash({
 			height: i
 		})
-		.catch((error) => {
-			throw new Error(`An error occurred whilst getting the hash for block ${i}: ${error}`);
-		})));
+
+		await checkpoints.push(new Checkpoint(i - 1, blockHash));
 	}
 
-	console.log("Checkpoints:\n" + JSON.stringify(checkpoints, null , 4));
-	let csvdata = await csvExporter.generateCsv(checkpoints, true);
-	
-	csvdata = csvdata.split('"').join('');
+	console.log('Got', checkpoints.length, 'checkpoints from 0 to', checkpoints[checkpoints.length - 1].height, 'blocks');
 
-	await fs.writeFileSync('checkpoints.csv', csvdata);
-	await console.log("New checkpoints.csv file has been written!");
+	let csv = ''
+
+	for (const checkpoint of checkpoints) {
+		csv += `${checkpoint.height},${checkpoint.hash}\n`
+	}
+
+	const buffer = Buffer.from(csv, 'ascii');
+
+	fs.open('checkpoints.csv', 'w', (err, fd) => {
+		if (err) throw err
+
+		console.log('Opened checkpoints.csv!');
+
+		fs.write(fd, buffer, 0, buffer.byteLength, 0, (err, bytes) => {
+			if(err) throw err;
+
+			console.log('Wrote', Math.floor(bytes / 1024), ' kilobytes');
+
+			fs.close(fd, (err) => {
+				console.log('Closed checkpoints.csv!');
+			});
+		});
+	})
 })
 .catch((error) => {
 	throw new Error(`An error occurred whilst getting height of the blockchain : ${error}`);

@@ -1,11 +1,9 @@
 {
   "name": "checkpoint_generator",
   "version": "1.0.0",
-  "description": "This NodeJS utility generates the current checkpoints.csv file for synchronizing with the TelluriumCoin network.",
+  "description": "This NodeJS utility generates a checkpoints.csv file for all Turtlecoin forked networks.",
   "main": "checkpoint_generator.js",
   "dependencies": {
-    "export-to-csv": "^0.2.1",
-    "turtlecoin-utils": "^0.0.6",
     "turtlecoin-rpc": "^1.0.3"
   },
   "devDependencies": {},
@@ -18,7 +16,7 @@
   },
   "keywords": [
     "crypto",
-    "tellurium",
+    "blockchain"
     "turtlecoin"
   ],
   "author": "TheDevMinerTV",
