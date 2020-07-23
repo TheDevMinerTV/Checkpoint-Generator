@@ -17,17 +17,15 @@ class Checkpoint {
 
 var checkpoints = [];
 
-daemon.getBlockCount().then(async (height) => {
-	await console.log("Got blockheight " + height + "!");
+daemon.blockCount().then(async (height) => {
+	console.log("Got blockheight " + height + "!");
 
 	for (let i = 1; i < height; i++) {
-		await console.log("Getting block info for height " + i);
+		console.log("Getting block info for height " + i);
 
-		const blockHash = await daemon.getBlockHash({
-			height: i
-		})
+		const blockHash = await daemon.blockHeaderByHeight(i)
 
-		await checkpoints.push(new Checkpoint(i - 1, blockHash));
+		checkpoints.push(new Checkpoint(i - 1, blockHash));
 	}
 
 	console.log('Got', checkpoints.length, 'checkpoints from 0 to', checkpoints[checkpoints.length - 1].height, 'blocks');
