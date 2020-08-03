@@ -4,7 +4,7 @@
   "description": "This NodeJS utility generates a checkpoints.csv file for all Turtlecoin forked networks.",
   "main": "checkpoint_generator.js",
   "dependencies": {
-    "turtlecoin-rpc": "1.0.3"
+    "turtlecoin-rpc": "3.0.0"
   },
   "scripts": {
     "start": "node checkpoint_generator.js"
