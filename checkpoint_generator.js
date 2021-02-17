@@ -30,7 +30,7 @@ daemon.blockCount().then(async (height) => {
 
 	console.log('Got', checkpoints.length, 'checkpoints from 0 to', checkpoints[checkpoints.length - 1].height, 'blocks');
 
-	const csv = checkpoints.map((c) => `${checkpoint.height},${checkpoint.hash}`.join('\n'));
+	const csv = checkpoints.map((c) => `${checkpoint.height},${checkpoint.hash}`).join('\n');
 
 	fs.writeFileSync('checkpoints.csv', csv);
 })
